@@ -4,8 +4,8 @@ function love.load()
    love.graphics.setNewFont(12)
    love.graphics.setColor(255,255,255)
    love.graphics.setBackgroundColor(0,0,0)
-   P1 = Paddle(0,0)
-   P2 = Paddle(60,0)
+   P1 = Paddle(20,0)
+   P2 = Paddle(love.graphics.getWidth()-20,0)
 end
 
 function love.update(dt)
