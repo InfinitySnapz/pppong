@@ -1,6 +1,8 @@
 Object = require "libs.classic"
 Paddle = Object.extend(Object)
 
+MaxHeight = love.graphics.getHeight()
+
 function Paddle:new(x,y)
     self.x = x
     self.y = y
@@ -15,5 +17,5 @@ function Paddle:render()
 end
 
 function Paddle:update(dt)
-    self.y = self.y+dt*self.speed
+    self.y = Clamp(0+self.height/2,self.y+dt*self.speed,MaxHeight-self.height/2)
 end
