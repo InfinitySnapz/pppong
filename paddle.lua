@@ -21,5 +21,5 @@ function Paddle:update(dt)
 end
 
 function Paddle:charge(dt)
-    self.y = Clamp(0+self.height/2,self.y+dt*self.speed,MaxHeight-self.height/2)
+    
 end
