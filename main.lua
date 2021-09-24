@@ -12,6 +12,11 @@ function Collide(x1,y1,w1,h1, x2,y2,w2,h2)
            y2-h1/2 < y1+h1/2
 end
 
+function BCollide(y1,h1,h2)
+    return y1-h1/2 < 0 or
+           y1+h1/2 > h2
+end
+
 function love.load()
     GTime = 0
     Motion = 1.0
@@ -22,7 +27,13 @@ function love.load()
 
     P1 = Paddle(20,love.graphics.getHeight()/2)
     P2 = Paddle(love.graphics.getWidth()-20,love.graphics.getHeight()/2)
-    Ball = Ball(love.graphics.getWidth()/2, love.graphics.getHeight()/2)
+    --Ball = Ball(love.graphics.getWidth()/2, love.graphics.getHeight()/2)
+
+    balls = {}
+    for i = 1,1,-1 do
+        print(i)
+        table.insert(balls, Ball(love.graphics.getWidth()/2, love.graphics.getHeight()/2))
+    end
 end
 
 function love.update(dt)
@@ -36,13 +47,17 @@ function love.update(dt)
     end
       
     P2:update(dm*math.cos(GTime))
-    Ball:update(dm)
+    for i, v in pairs(balls) do
+        v:update(dm)
+    end
 end
 
 function love.draw()
-    love.graphics.print('pppong 0.0.6')
+    love.graphics.print('pppong 0.0.9')
     P1:render()
     P2:render()
-    Ball:render()
+    for i, v in pairs(balls) do
+        v:render()
+    end
 end
 
