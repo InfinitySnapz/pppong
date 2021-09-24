@@ -16,17 +16,11 @@ function Ball:new(x,y)
     self.y = y
     self.width = 20
     self.height = 20
-    self.bearing = {math.rad(math.random(-60,-120)),250}
+    self.bearing = {math.rad(math.random(0,360.01)),250}
     --self.bearing = {math.rad(0),250} -- angle, velocity, better for calculating new direction
     self.vector = toVector(self.bearing) -- x velocity, y velocity, better for performance, better for fine collision details
-    print("vec",self.vector[1],self.vector[2])
-    print("bear",self.bearing[1],self.bearing[2])
-    
-    test1 = toBearing(toVector({2,100}))
-    print(test1[1],test1[2])
-    test2 = toVector(toBearing({2,100}))
-    print(test2[1],test2[2])
-
+    --print("vec",self.vector[1],self.vector[2])
+    --print("bear",self.bearing[1],self.bearing[2])
 end
 
 function Ball:update(dt)
@@ -36,6 +30,10 @@ function Ball:update(dt)
     end
     if Collide(self.x, self.y, self.width, self.height, P2.x, P2.y, P2.width, P2.height*100) then
         self.vector = {-self.vector[1],self.vector[2]}
+        self.bearing = toBearing(self.vector)
+    end
+    if BCollide(self.y, self.height, love.graphics.getHeight()) then
+        self.vector = {self.vector[1],-self.vector[2]}
         self.bearing = toBearing(self.vector)
     end
     self.x = self.x + self.vector[1]*dt
